@@ -1,0 +1,104 @@
+body {
+
+	background-color: #405563;
+}
+
+.container{
+
+	width:100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.branding{
+
+	color: black;
+	margin-bottom: 0px;
+
+}
+
+.photocontainer{
+
+	width:320px; margin:2px; padding-bottom: 10px; float:left; border-radius:1px; background-color:white;
+
+}
+
+.photocontainer span{
+
+	font-size: 12px;
+	color: #999;
+}
+
+.uploadcontainer{
+
+	width:260px; margin-right:10px; margin-top:10px; padding-left: 20px; padding-right: 20px; float:left; border-radius:1px; background-color: white;
+	
+}
+
+.kaushan{
+	 font: 400 18px/1 'Kaushan Script', cursive;
+}
+.media-icon{
+
+	font-size: 100px; color: #999; margin-top: 40px;
+	
+}
+
+/*.imagegrid {*/
+  /*font-size: 0;*/
+   /*display: flex;*/
+  /*flex-wrap: wrap;*/
+/*}*/
+
+/*.a {*/
+  /*font-size: 16px;*/
+  /*display: inline-block;*/
+  /*margin-bottom: 8px;*/
+  /*width: calc(50% - 4px);*/
+  /*margin-right: 8px;*/
+  /*text-decoration: none;*/
+  /*color: black;*/
+/*}*/
+
+/*.a:nth-of-type(2n) {*/
+  /*margin-right: 0;*/
+/*}*/
+
+/*@media screen and (min-width: 50em) {*/
+  /*.a {*/
+    /*width: calc(25% - 6px);*/
+  /*}*/
+
+  /*.a:nth-of-type(2n) {*/
+    /*margin-right: 8px;*/
+  /*}*/
+
+  /*.a:nth-of-type(4n) {*/
+    /*margin-right: 0;*/
+  /*}*/
+/*}*/
+
+/*.a:hover img {*/
+  /*transform: scale(1.15);*/
+/*}*/
+
+/*figure {*/
+  /*margin: 0;*/
+  /*overflow: hidden;*/
+/*}*/
+
+/*figcaption {*/
+  /*margin-top: 15px;*/
+/*}*/
+
+/*img {*/
+  /*border: none;*/
+  /*max-width: 100%;*/
+  /*height: auto;*/
+  /*display: block;*/
+  /*background: #ccc;*/
+  /*transition: transform .2s ease-in-out;*/
+/*}*/
+
+
+

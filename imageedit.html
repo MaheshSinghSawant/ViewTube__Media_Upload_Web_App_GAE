@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+  <head>
+    <!--<link href='http://fonts.googleapis.com/css?family=Signika|Bree+Serif' rel='stylesheet' type='text/css'>-->
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css" />
+    <script src="/js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://files.codepedia.info/uploads/iScripts/html2canvas.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row"> <!-- navbar row -->
+        <div class="col-sm-12">
+          <nav class="navbar navbar-inverse" >
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                    <li role="presentation" ><a class="kaushan" href="http://viewtube-147407.appspot.com"  style="color:white; font-size: 30px">ViewTube</a></li>
+                    <li role="presentation" ><a href="http://viewtube-147407.appspot.com" class="active" style="color:white">All Files</a></li>
+                    <li role="presentation" {% if category=="0" %} class="active" {% endif %}><a href="http://viewtube-147407.appspot.com/?category=0" style="color:white">Images</a></li>
+                    <li role="presentation" {% if category=="1" %} class="active" {% endif %}><a href="http://viewtube-147407.appspot.com/?category=1" style="color:white">Audios</a></li>
+                    <li role="presentation" {% if category=="2" %} class="active" {% endif %}><a href="http://viewtube-147407.appspot.com/?category=2" style="color:white">Videos</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                     {% if url_linktext=="Login" %}
+                      <a href="{{ url }}" style="color:white">Login</a>
+                  {% else %}
+                      <a href="{{ url }}" style="color:white">Logout</a>
+                  {% endif %}
+                </li>
+              </ul>
+              </div><!-- /.navbar-collapse -->
+            </div>
+          </nav>
+        </div>
+      </div>
+        <div class="row">
+
+
+            <div class="col-sm-8" style="padding:20px;border-radius:1px; margin-left: 1%;">
+
+                    {% for current_file in uploaded_files %}
+
+                      <div>
+                          <center>
+
+                          <!--<h2>{{ current_file['title'] }}</h2>-->
+                          <!--<br>-->
+
+
+                          <div id="html-content-holder">
+                            <img src="http://viewtube-147407.appspot.com/imagelarge?blob_key={{current_file['blob_id']}}">
+                          </div>
+
+                        <!--<a  href="http://viewtube-147407.appspot.com/crop?image_id={{current_file['fid']}}"  class="btn btn-block btn-primary" style = "width:33%;">Crop</a>-->
+                        <input id="btn-Preview-Image" type="button" value="Save" class="ui-btn btn-block btn-primary" style = "width:50%;"/>
+                        <a id="btn-Convert-Html2Image" href="#"  class="btn btn-block btn-primary" style = "width:50%;">Download</a>
+                        <br/>
+                        <div id="previewImage" style="display:none;">
+                        </div>
+                          <br/>
+                            </center>
+                      </div>
+
+                    {% endfor %}
+
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function(){
+
+    var element = $("#html-content-holder"); // global variable
+    var getCanvas; // global variable
+
+        $("#btn-Preview-Image").on('click', function () {
+             html2canvas(element, {
+             onrendered: function (canvas) {
+                    $("#previewImage").append(canvas);
+                    getCanvas = canvas;
+                 }
+             });
+        });
+
+        $("#btn-Convert-Html2Image").on('click', function () {
+        var imgageData = getCanvas.toDataURL("image/jpg");
+        // Now browser starts downloading it instead of just showing it
+        var newData = imgageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
+        $("#btn-Convert-Html2Image").attr("download", "your_pic_name.jpg").attr("href", newData);
+        });
+
+    });
+    </script>
+  </body>
+</html>

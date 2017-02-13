@@ -1,0 +1,117 @@
+ <!DOCTYPE html>
+  <head>
+    <!--<link href='http://fonts.googleapis.com/css?family=Signika|Bree+Serif' rel='stylesheet' type='text/css'>-->
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css" />
+    <script src="/js/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row"> <!-- navbar row -->
+        <div class="col-sm-12">
+          <nav class="navbar navbar-inverse" >
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                    <li role="presentation" ><a class="kaushan" href="http://viewtube-147407.appspot.com"  style="color:white; font-size: 30px">ViewTube</a></li>
+                    <li role="presentation" ><a href="http://viewtube-147407.appspot.com" class="active" style="color:white">All Files</a></li>
+                    <li role="presentation" {% if category=="0" %} class="active" {% endif %}><a href="http://viewtube-147407.appspot.com/?category=0" style="color:white">Images</a></li>
+                    <li role="presentation" {% if category=="1" %} class="active" {% endif %}><a href="http://viewtube-147407.appspot.com/?category=1" style="color:white">Audios</a></li>
+                    <li role="presentation" {% if category=="2" %} class="active" {% endif %}><a href="http://viewtube-147407.appspot.com/?category=2" style="color:white">Videos</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                     {% if url_linktext=="Login" %}
+                      <a href="{{ url }}" style="color:white">Login</a>
+                  {% else %}
+                      <a href="{{ url }}" style="color:white">Logout</a>
+                  {% endif %}
+                </li>
+              </ul>
+              </div><!-- /.navbar-collapse -->
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        {% if url_linktext=="Logout" %}
+        <div class="col-sm-8" style="padding-left: 0%; padding-right: 0%; margin-left:1%; margin-right:0%;">
+        {% else %}
+        <div class="col-sm-12" style="padding-left: 0%; padding-right: 0%; margin-left:1%; margin-right:0%;">
+        {% endif %}  
+
+          {% for current_file in uploaded_files %}
+          <div class="photocontainer">
+            <center>
+              <div style="min-height:250px;text-align:center;width:320px;">
+
+                {% if current_file['filetype']==0 %}
+
+                  <img src="http://viewtube-147407.appspot.com/thumb?blob_key={{current_file['blob_id']}}">
+
+                {% else %}
+
+                  {% if current_file['filetype']==1 %}
+                        <audio controls style="margin-top:200px">
+                        <source src="http://viewtube-147407.appspot.com/getrawfile?blob_key={{current_file['blob_id']}}" type="audio/mpeg">
+                        </audio>
+                  {% else %}
+                        <video width="320" height="240" controls>
+                        <source src="http://viewtube-147407.appspot.com/getrawfile?blob_key={{current_file['blob_id']}}" type="video/mp4">
+                        </video>
+                  {% endif %}
+                {% endif %}
+              </div>
+              <b class="kaushan">{{ current_file['title'] }}</b>
+              <br>
+            </center>
+              {% if url_linktext=="Logout" %}
+              <a style="float:left; padding-left: 10%; padding-right: 10%; margin-top:2%; margin-left:5%; margin-right:0%;" href="http://viewtube-147407.appspot.com/imageedit?image_id={{current_file['fid']}}" class="btn btn-sm btn-primary">Rotate</a>
+              <a style="float:left; padding-left: 10%; padding-right: 10%; margin-top:2%; margin-left:5%; margin-right:0%;" href="http://viewtube-147407.appspot.com/imageedits?image_id={{current_file['fid']}}" class="btn btn-sm btn-primary">Crop</a>
+            <a style="float:right; padding-left: 6%; padding-right: 6%; margin-top:2%; margin-left:0%; margin-right:5%;" href="http://viewtube-147407.appspot.com/delete?blob_key={{current_file['blob_id']}}" class="btn btn-sm btn-danger">Delete</a>
+              {% endif %}
+          </div>
+          {% endfor %}
+
+        </div>
+        {% if url_linktext=="Logout" %}
+        <div class="col-sm-3">
+          <div class="uploadcontainer">
+            <form role="form" action="{{ upload_url }}" method="post" enctype="multipart/form-data">
+              <h3  style="text-align:center; margin-bottom:20px; ">Add Media</h3>
+              <div class="form-group" style="margin-bottom:10px;">
+                <input type="text" name="title" class="form-control" id="keyField" placeholder="Title">
+              </div>
+              <div class="form-group" style="margin-bottom:20px;">
+                <input name="file" type="file" id="exampleInputFile">
+              </div>
+              <div class="form-group" style="margin-bottom:20px;">
+                <select name="filetype" onChange="switchMessageType(this.value);" class="form-control">
+                  <option value="">Type of File</option>
+                  <option value="0">Image</option>
+                  <option value="1">Audio</option>
+                  <option value="2">Video</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg btn-block kaushan" style="margin-bottom:20px; font-size:25px">Upload!</button>
+            </form>
+          </div>
+        </div>
+          {% endif %}
+          <div class="col-sm-1">
+            </div>
+      </div>
+    </div>
+  </body>
+</html>
